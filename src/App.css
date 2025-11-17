@@ -5,7 +5,7 @@
 }
 
 body {
-  background: url("Background img.jpg") center/cover no-repeat;
+  background: url("assets/Background\ img.jpeg") center/cover no-repeat;
   height: 100vh;
   display: flex;
   justify-content: center;

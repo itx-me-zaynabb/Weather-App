@@ -7,12 +7,9 @@ const Weather = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const HandleChange = (e) => {
-    setCity(e.target.value);
-  };
+  const HandleChange = (e) => setCity(e.target.value);
 
   const fetchWeather = async () => {
-    // basic validation
     if (!city.trim()) {
       setError("Please enter a city name.");
       return;
@@ -24,27 +21,22 @@ const Weather = () => {
 
     try {
       const apiKey = "f9af8cff645b7ef7b8675f03b27f0e4b";
-      const url = https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
         city.trim()
-      )}&appid=${apiKey}&units=metric;
+      )}&appid=${apiKey}&units=metric`;
 
       console.log("Requesting:", url);
       const response = await axios.get(url);
-
       setWeather(response.data);
     } catch (err) {
       console.error("Error fetching weather data", err);
       const apiMsg = err.response?.data?.message;
       setError(
-        apiMsg ? API error: ${apiMsg} : "Error fetching weather data."
+        apiMsg ? `API error: ${apiMsg}` : "Error fetching weather data."
       );
     } finally {
       setLoading(false);
     }
-  };
-
-  const HandleClick = () => {
-    fetchWeather();
   };
 
   return (
@@ -59,7 +51,7 @@ const Weather = () => {
         onChange={HandleChange}
       />
 
-      <button className="btn" onClick={HandleClick} disabled={loading}>
+      <button className="btn" onClick={fetchWeather} disabled={loading}>
         {loading ? "Loading..." : "Get Weather"}
       </button>
 
@@ -77,7 +69,7 @@ const Weather = () => {
           <p>Description: {weather.weather?.[0]?.description}</p>
           <img
             alt={weather.weather?.[0]?.description}
-            src={https://openweathermap.org/img/wn/${weather.weather?.[0]?.icon}@2x.png}
+            src={`https://openweathermap.org/img/wn/${weather.weather?.[0]?.icon}@2x.png`}
           />
         </div>
       )}
@@ -85,4 +77,4 @@ const Weather = () => {
   );
 };
 
-export default Weather; 
+export default Weather;
